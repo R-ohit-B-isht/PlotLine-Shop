@@ -65,7 +65,7 @@ const HomeScreen = () => {
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                 <Product product={product} />
               </Col>
-            )) : <h3>No Products Found</h3>
+            )) : <Message variant='danger'>No Products Found</Message>
           }
           </Row>
           <h1>Service Providers</h1>
@@ -75,7 +75,7 @@ const HomeScreen = () => {
                 <Service service={service} />
               </Col>
             ))
-            : <h3>No Service Provider Found</h3>
+            : <Message variant='danger'>No Service Provider Found</Message>
             }
           </Row>
           <Paginate
