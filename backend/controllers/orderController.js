@@ -97,11 +97,10 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   if (!isNewTransaction) throw new Error('Transaction has been used before');
 
   const order = await Order.findById(req.params.id);
-
+  console.log(order);
   if (order) {
     // check the correct amount was paid
-    const paidCorrectAmount = parseFloat(order.totalPrice) === parseFloat(value);
-    console.log(paidCorrectAmount, parseFloat(order.totalPrice) , parseFloat(value));
+    const paidCorrectAmount = order.totalPrice.toString() === value;
     if (!paidCorrectAmount) throw new Error('Incorrect amount paid');
 
     order.isPaid = true;
