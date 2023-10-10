@@ -101,6 +101,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   if (order) {
     // check the correct amount was paid
     const paidCorrectAmount = parseFloat(order.totalPrice) === parseFloat(value);
+    console.log(paidCorrectAmount, parseFloat(order.totalPrice) , parseFloat(value));
     if (!paidCorrectAmount) throw new Error('Incorrect amount paid');
 
     order.isPaid = true;
