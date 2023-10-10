@@ -20,12 +20,12 @@ const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { data: productsData, isLoading: productsLoading, error: productsError } = useGetProductsQuery({
+  const { data: productsData, error: productsError } = useGetProductsQuery({
     keyword,
     pageNumber,
   });
 
-  const { data: servicesData, isLoading: servicesLoading, error: servicesError } = useGetServicesQuery({
+  const { data: servicesData, error: servicesError } = useGetServicesQuery({
     keyword,
     pageNumber,
   });
