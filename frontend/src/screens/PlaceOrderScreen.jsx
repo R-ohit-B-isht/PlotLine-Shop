@@ -8,6 +8,7 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import Loader from '../components/Loader';
 import { useCreateOrderMutation } from '../slices/ordersApiSlice';
 import { clearCartItems } from '../slices/cartSlice';
+import TaxDetailComponent from '../components/TaxDetailComponent';
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
@@ -50,20 +51,20 @@ const PlaceOrderScreen = () => {
       tax=0.18
       else if(item.price>1000)
       tax=0.12
-      let tp=item.qty * item.price;
-      let totalTax=item.qty * (tax===0 ? 200 : tax * item.price);
-      let totalCost=tp+totalTax;
-      return <p>({item.qty} x ${item.price} = ${tp})+(${tax===0 ? 200 : tax * item.price} x {item.qty} = ${totalTax}) = ${totalCost}</p>
+      let tp=(parseFloat(item.qty * item.price)).toFixed(2);
+      let totalTax = (parseFloat(item.qty * (tax === 0 ? 200 : tax * item.price))).toFixed(2);
+      let totalCost=(parseFloat(tp+totalTax)).toFixed(2);
+      return <p>({item.qty} x ${item.price} = ${tp})+(${tax===0 ? 200 : parseFloat(tax * item.price).toFixed(2)} x {item.qty} = ${totalTax}) = ${totalCost}</p>
     }
     else if(type==="service"){
-      let tp=item.week * item.price;
+      let tp=parseFloat(item.week * item.price).toFixed(2);
       if(tp>8000)
         tax=0.15
       else if(tp > 1000)
         tax=0.10
-      let totalTax=tax===0 ? 100 : tax * tp;
-      let totalCost=tp+totalTax;
-      return <p>({item.week} x ${item.price} = ${item.week * item.price})+(${totalTax})=${totalCost}</p>
+      let totalTax=tax===0 ? 100 : parseFloat(tax * tp).toFixed(2);
+      let totalCost=parseFloat(tp+totalTax).toFixed(2);
+      return <p>({item.week} x ${item.price} = ${parseFloat(item.week * item.price).toFixed(2)})+(${totalTax})=${totalCost}</p>
     }
   }
 
@@ -155,13 +156,13 @@ const PlaceOrderScreen = () => {
                   <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
+              
                 {error && (
-
+                  <ListGroup.Item>
                   <Message variant='danger'>{error.data.message}</Message>
-                 
+                 </ListGroup.Item>
                 )}
-                </ListGroup.Item>
+                
               <ListGroup.Item>
                 <Button
                   type='button'
@@ -175,6 +176,7 @@ const PlaceOrderScreen = () => {
               </ListGroup.Item>
             </ListGroup>
           </Card>
+          <TaxDetailComponent/>
         </Col>
       </Row>
     </>

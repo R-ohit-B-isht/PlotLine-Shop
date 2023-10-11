@@ -12,6 +12,7 @@ import {
 import { FaTrash } from 'react-icons/fa';
 import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
+import TaxDetailComponent from '../components/TaxDetailComponent';
 
 const CartScreen = () => {
   const navigate = useNavigate();
@@ -142,6 +143,7 @@ const CartScreen = () => {
             </ListGroup.Item>
           </ListGroup>
         </Card>
+        <TaxDetailComponent/>
       </Col>
     </Row>
   );
